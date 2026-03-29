@@ -10,3 +10,11 @@ blender_version_min = "4.2.0"
 website = "https://github.com/c42m05/NLA-Batch-Editor"
 license = ["SPDX:GPL-3.0-or-later",]
 copyright = ["2024 c4205M",]
+
+[build]
+paths_exclude_pattern = [
+  "__pycache__/",
+  "*.md",
+  ".*",
+  ".*/"
+]
