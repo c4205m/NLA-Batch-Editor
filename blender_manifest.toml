@@ -1,0 +1,16 @@
+schema_version = "1.0.0"
+
+id = "nla_batch_editor"
+version = "1.0.0"
+blender_version_min = "4.2.0"
+
+name = "NLA Batch Editor"
+tagline = "Batch editing for NLA Editor"
+maintainer = "c4205M <ylmzcanmstf@gmail.com>"
+type = "add-on"
+website = "https://github.com/c42m05/NLA-Batch-Editor"
+tags = ["Animation"]
+
+license = [
+  "SPDX:GPL-3.0-or-later",
+]
