@@ -1,13 +1,3 @@
-bl_info = {
-    "name": "NLA Batch Editor",
-    "version": (1, 1, 0),
-    "author": "c4205M",
-    "blender": (4, 5, 2),
-    "description": "Batch editing for NLA Editor",
-    "category": "NLA",
-    "doc_url": "https://github.com/c42m05/NLA-Batch-Editor",
-}
-
 if "bpy" in locals():
     from importlib import reload
 
