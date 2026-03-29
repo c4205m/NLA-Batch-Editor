@@ -14,15 +14,16 @@ class op(bpy.types.Operator):
     def execute(self, context):
         class props:
             op = context.scene.NBE_properties.modify_selection_props
-            strip = context.scene.NBE_properties.strip_props
 
         class selection:
             is_track = props.op.selection_type == "TRACK"
             has_mute = props.op.include_tracks == 'BOTH' or props.op.include_tracks == 'MUTE'
             has_locked = props.op.include_tracks == 'BOTH' or props.op.include_tracks == 'LOCK'
 
-        search_source = props.op if props.op.filter_method == "name" else props.strip
-        search_value = getattr(search_source, props.op.filter_method) 
+        if props.op.filter_method == "name":
+            search_value = props.op.name
+        else:
+            search_value = getattr(props.op, props.op.filter_method)
 
         selectable_stacks = set()
         selected_stacks = set()
@@ -41,9 +42,9 @@ class op(bpy.types.Operator):
             target_stacks = nla_tracks if selection.is_track else (strip for track in nla_tracks for strip in track.strips)
 
             for item in target_stacks:
-                if (utils_attributes.compare_attribute(props.op.filter_method, 
-                                        item, search_value, 
-                                        props.strip.is_search_includes)):
+                if (utils_attributes.compare_attribute(props.op.filter_method,
+                                        item, search_value,
+                                        props.op.filter_method == "name" and props.op.is_search_includes)):
                     selectable_stacks.add(item)
 
                 if item.select:

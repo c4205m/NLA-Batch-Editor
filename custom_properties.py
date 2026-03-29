@@ -2,156 +2,6 @@
 
 import bpy
 
-class StripProperties(bpy.types.PropertyGroup): 
-    action: bpy.props.PointerProperty(
-        type=bpy.types.Action, 
-        name="Action"
-    )  
-
-    blend_in: bpy.props.FloatProperty(
-        name="Blend In",
-        default=0.0,
-        description="Set blend in value",
-        options=set()
-    )  
-
-    blend_out: bpy.props.FloatProperty(
-        name="Blend Out",
-        default=0.0,
-        description="Set blend out value",
-        options=set()
-    )  
-    
-    blend_type : bpy.props.EnumProperty(
-        items=[("REPLACE", "Replace", "Set blend type to"),
-               ("COMBINE", "Combine", "Set blend type to"),
-               ("ADD", "Add", "Set blend type to"),
-               ("SUBTRACT", "Subtract", "Set blend type to"),
-               ("MULTIPLY", "Multiply", "Set blend type to")],
-        name="Blend Type",
-        options=set()
-    ) 
-
-    extrapolation : bpy.props.EnumProperty(
-        items=[("HOLD", "Hold", "Set extrapolation to"),
-               ("HOLD_FORWARD", "Hold Forward", "Set extrapolation to"),
-               ("NOTHING", "Nothing", "Set extrapolation to")],
-        name="Extrapolation",
-        options=set()
-    ) 
-
-    frame_end: bpy.props.IntProperty(
-        name="End Frame",
-        default=0,
-        description="Set frame end value",
-        options=set()
-    )  
-
-    frame_start: bpy.props.IntProperty(
-        name="Start Frame",
-        default=0,
-        description="Set frame start value",
-        options=set()
-    )  
-
-    influence: bpy.props.FloatProperty(
-        name="Influence",
-        default=0.0,
-        description="Set animated influence value",
-        options=set()
-    )  
-
-    mute: bpy.props.BoolProperty(
-        name="Mute",
-        default=False,
-        description="Set mute type",
-        options=set()
-    )  
-
-    name: bpy.props.StringProperty(
-        name="Name",
-        default="**STRIP_NAME**",
-        description="Edit track name. Tip: **STRIP_NAME** will be substituted with the name of the original track",
-        options=set()
-    )  
-
-    repeat: bpy.props.IntProperty(
-        name="Repeat",
-        default=0,
-        description="Set repeat value",
-        options=set()
-    )  
-
-    scale: bpy.props.FloatProperty(
-        name="Scale",
-        default=0.0,
-        description="Set scale value",
-        options=set()
-    )  
-
-    strip_time: bpy.props.FloatProperty(
-        name="Strip Time",
-        default=0.0,
-        description="Set animated strip time value",
-        options=set()
-    )  
-
-    # type: bpy.props.StringProperty(
-    #     name="Type",
-    #     default="",
-    #     description="Include type attribute to edit",
-    #     options=set()
-    # )  
-
-    use_animated_influence: bpy.props.BoolProperty(
-        name="Animated Influence",
-        default=False,
-        description="Toggle animated influence",
-        options=set()
-    )  
-
-    use_animated_time: bpy.props.BoolProperty(
-        name="Animated Time",
-        default=False,
-        description="Toggle animated time",
-        options=set()
-    )  
-
-    use_animated_time_cyclic: bpy.props.BoolProperty(
-        name="Animated Time Cyclic",
-        default=False,
-        description="Toggle animated time cyclic",
-        options=set()
-    )  
-
-    use_auto_blend: bpy.props.BoolProperty(
-        name="Auto Blend In/Out",
-        default=False,
-        description="Toggle auto blend",
-        options=set()
-    )  
-
-    use_reverse: bpy.props.BoolProperty(
-        name="Reverse",
-        default=False,
-        description="Toggle reverse",
-        options=set()
-    )  
-
-    use_sync_length: bpy.props.BoolProperty(
-        name="Sync Length",
-        default=False,
-        description="Toggle sync length",
-        options=set()
-    )  
-    
-    is_search_includes : bpy.props.BoolProperty( ## WARNING: Not a blender porperty
-        name="Name Contains Keyword",
-        default=True,
-        description="When enabled, the search key will inclusively match any part of the target names. Disable for exact matching only.",
-        options=set()
-    ) 
-
 class StripPropertyToggles(bpy.types.PropertyGroup):
     action : bpy.props.BoolProperty(
         name="Action",
@@ -159,20 +9,6 @@ class StripPropertyToggles(bpy.types.PropertyGroup):
         description="Include action to edit",
         options=set()
     )  
-
-    # action_frame_end : bpy.props.BoolProperty(
-    #     name="Action Frame End",
-    #     default=False,
-    #     description="Include action frame end to edit",
-    #     options=set()
-    # )  
-
-    # action_frame_start : bpy.props.BoolProperty(
-    #     name="Action Frame Start",
-    #     default=False,
-    #     description="Include action frame start to edit",
-    #     options=set()
-    # )  
 
     blend_in : bpy.props.BoolProperty(
         name="Blend In",
@@ -202,13 +38,6 @@ class StripPropertyToggles(bpy.types.PropertyGroup):
         options=set()
     )  
 
-    fcurves : bpy.props.BoolProperty(
-        name="Fcurves",
-        default=False,
-        description="Include fcurves to edit",
-        options=set()
-    )  
-
     frame_end : bpy.props.BoolProperty(
         name="End Frame",
         default=False,
@@ -220,13 +49,6 @@ class StripPropertyToggles(bpy.types.PropertyGroup):
         name="Start Frame",
         default=False,
         description="Include start frame value to edit",
-        options=set()
-    )  
-
-    modifiers : bpy.props.BoolProperty(
-        name="Modifiers",
-        default=False,
-        description="Include modifiers to edit",
         options=set()
     )  
 
@@ -250,20 +72,6 @@ class StripPropertyToggles(bpy.types.PropertyGroup):
         description="Include scale amount to edit",
         options=set()
     )  
-
-    strips : bpy.props.BoolProperty(
-        name="Strips",
-        default=False,
-        description="Include strips attribute to edit",
-        options=set()
-    )  
-
-    # type : bpy.props.BoolProperty(
-    #     name="Type",
-    #     default=False,
-    #     description="Include type attribute to edit",
-    #     options=set()
-    # )  
 
     use_animated_influence : bpy.props.BoolProperty(
         name="Animated Influence",
@@ -403,7 +211,7 @@ class DublicateOpsProperties(bpy.types.PropertyGroup):
         default="Dublicate_**TRACK_NAME**",
         description="Set name for copy tracks. Tip: **TRACK_NAME** will be substituted with the name of the original track",
         options=set()
-    ) #type: ignore
+    )
 
     is_copy_linked : bpy.props.BoolProperty(
         name="Linked Copy",
@@ -445,6 +253,13 @@ class ModifySelectionProperties(bpy.types.PropertyGroup):
         options=set()
     ) 
     
+    is_search_includes : bpy.props.BoolProperty(
+        name="Name Contains Keyword",
+        default=True,
+        description="When enabled, the search key will inclusively match any part of the target names. Disable for exact matching only.",
+        options=set()
+    )
+
     filter_method : bpy.props.EnumProperty(
         items=[("name", "Name", "Filter by name"),
                ("frame_start", "Start Frame", "Filter by start frame value"),
@@ -461,7 +276,29 @@ class ModifySelectionProperties(bpy.types.PropertyGroup):
                ("repeat", "Repeat", "Filter by repeat")],
         name="Filter by",
         options=set()
-    ) 
+    )
+
+    # Filter value properties — named to match filter_method enum identifiers
+    # so the panel can use layout.prop(op_props, op_props.filter_method) dynamically
+    frame_start: bpy.props.IntProperty(name="Start Frame", default=0, options=set())
+    frame_end: bpy.props.IntProperty(name="End Frame", default=0, options=set())
+    extrapolation: bpy.props.EnumProperty(
+        items=[("HOLD", "Hold", ""), ("HOLD_FORWARD", "Hold Forward", ""), ("NOTHING", "Nothing", "")],
+        name="Extrapolation", options=set()
+    )
+    blend_type: bpy.props.EnumProperty(
+        items=[("REPLACE", "Replace", ""), ("COMBINE", "Combine", ""), ("ADD", "Add", ""),
+               ("SUBTRACT", "Subtract", ""), ("MULTIPLY", "Multiply", "")],
+        name="Blend Type", options=set()
+    )
+    use_auto_blend: bpy.props.BoolProperty(name="Auto Blend In/Out", default=False, options=set())
+    blend_in: bpy.props.FloatProperty(name="Blend In", default=0.0, options=set())
+    blend_out: bpy.props.FloatProperty(name="Blend Out", default=0.0, options=set())
+    use_reverse: bpy.props.BoolProperty(name="Reverse", default=False, options=set())
+    use_animated_influence: bpy.props.BoolProperty(name="Animated Influence", default=False, options=set())
+    influence: bpy.props.FloatProperty(name="Influence", default=1.0, options=set())
+    scale: bpy.props.FloatProperty(name="Scale", default=1.0, options=set())
+    repeat: bpy.props.IntProperty(name="Repeat", default=1, options=set())
 
 class EditTrackProperties(bpy.types.PropertyGroup):
     name_input : bpy.props.StringProperty(
@@ -494,7 +331,6 @@ class EditTrackProperties(bpy.types.PropertyGroup):
     ) 
 
 class NbeProperties(bpy.types.PropertyGroup):
-    strip_props: bpy.props.PointerProperty(type=StripProperties) 
     strip_toggles: bpy.props.PointerProperty(type=StripPropertyToggles)
     pushdown_props: bpy.props.PointerProperty(type=PushdownProperties)
     dublicate_ops_props: bpy.props.PointerProperty(type=DublicateOpsProperties)
@@ -503,7 +339,6 @@ class NbeProperties(bpy.types.PropertyGroup):
 
 classes = (
     ModifySelectionProperties,
-    StripProperties,
     PushdownProperties,
     DublicateOpsProperties,
     EditTrackProperties,
@@ -516,21 +351,9 @@ def register():
         bpy.utils.register_class(cls)
 
     bpy.types.Scene.NBE_properties = bpy.props.PointerProperty(type=NbeProperties)
-    # bpy.types.Scene.NBE_modify_selection_properties = bpy.props.PointerProperty(type=ModifySelectionProperties)
-    # bpy.types.Scene.NBE_strip_properties = bpy.props.PointerProperty(type=StripProperties)
-    # bpy.types.Scene.NBE_pushdown_properties = bpy.props.PointerProperty(type=PushdownProperties)
-    # bpy.types.Scene.NBE_dublicate_op_properties = bpy.props.PointerProperty(type=DublicateOpsProperties)
-    # bpy.types.Scene.NBE_edit_track_op_properties = bpy.props.PointerProperty(type=EditTrackProperties)
-    # bpy.types.Scene.NBE_strip_property_toggles = bpy.props.PointerProperty(type=StripPropertyToggles)
 
 def unregister():
     for cls in classes:
         bpy.utils.unregister_class(cls)
     
     del bpy.types.Scene.NBE_properties
-    # del bpy.types.Scene.NBE_modify_selection_properties
-    # del bpy.types.Scene.NBE_strip_properties
-    # del bpy.types.Scene.NBE_pushdown_properties
-    # del bpy.types.Scene.NBE_dublicate_op_properties
-    # del bpy.types.Scene.NBE_edit_track_op_properties
-    # del bpy.types.Scene.NBE_strip_property_toggles

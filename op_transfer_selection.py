@@ -4,7 +4,7 @@ class op(bpy.types.Operator):
     """Switches selection between NLA tracks and their strips."""
     bl_idname = "anim.transfer_selection"
     bl_label = "Transfer Selection"
-    bl_options = {"REGISTER", "UNDO"} # WARNING: This may be external to the search, why not
+    bl_options = {"REGISTER", "UNDO"}
 
     transfer_type: bpy.props.EnumProperty(
         items=[
@@ -24,7 +24,7 @@ class op(bpy.types.Operator):
         selected = 0
         is_stot = self.transfer_type == "STOT"
 
-        for obj in context.view_layer.objects: # WARNING: Blender has no selected tracks context
+        for obj in context.view_layer.objects: # Blender has no selected tracks context
             if not obj.animation_data or not obj.animation_data.nla_tracks:
                 continue
             

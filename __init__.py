@@ -1,6 +1,6 @@
 bl_info = {
     "name": "NLA Batch Editor",
-    "version": (1, 0, 0),
+    "version": (1, 1, 0),
     "author": "c4205M",
     "blender": (4, 5, 2),
     "description": "Batch editing for NLA Editor",
@@ -109,18 +109,9 @@ class NLA_PT_modify_selection(bpy.types.Panel):
 
     def draw(self, context):
         op_props = context.scene.NBE_properties.modify_selection_props
-        strip_props = context.scene.NBE_properties.strip_props
 
         layout = self.layout
         layout.use_property_split = True
-
-        col = layout.column()
-        col.scale_y = 2.0
-        col.operator(op_transfer_selection.op.bl_idname)
-
-        col.separator(type="SPACE")
-        col.separator(type="LINE")
-        col.separator(type="SPACE")
 
         segment = layout.box()
         segment.prop(op_props, 'selection_option')
@@ -132,13 +123,13 @@ class NLA_PT_modify_selection(bpy.types.Panel):
             segment.prop(op_props, 'filter_method')
             if op_props.filter_method == 'name':
                 segment.prop(op_props, op_props.filter_method)
-                segment.prop(strip_props, 'is_search_includes')
+                segment.prop(op_props, 'is_search_includes')
             else:
-                segment.prop(strip_props, op_props.filter_method)
+                segment.prop(op_props, op_props.filter_method)
 
         else:
             segment.prop(op_props, 'name')
-            segment.prop(strip_props, 'is_search_includes')
+            segment.prop(op_props, 'is_search_includes')
        
         segment.separator(type="SPACE")
         
@@ -147,6 +138,13 @@ class NLA_PT_modify_selection(bpy.types.Panel):
         row.split(factor=1)
         row.operator(op_modify_selection.op.bl_idname)
         row.split(factor=1)
+
+        row = segment.row()
+        row.scale_y = 2.0
+        row.split(factor=1)
+        row.operator_menu_enum(op_transfer_selection.op.bl_idname, 'transfer_type')
+        row.split(factor=1)
+
         segment.separator(type="SPACE")
 
 class NLA_PT_track_edit(bpy.types.Panel):
@@ -174,8 +172,8 @@ class NLA_PT_track_edit(bpy.types.Panel):
 
         is_toggle_edit = edit_track_op_props.edit_mode == "TOGGLE"
 
-        edit_track_op.prop(edit_track_op_props, "mute_input", text = "Toggle Mute" if is_toggle_edit else "Set Mute")
-        edit_track_op.prop(edit_track_op_props, "lock_input", text = "Toggle Lock" if is_toggle_edit else "Set Lock")
+        edit_track_op.prop(edit_track_op_props, "mute_input", text = "Toggle Mute" if is_toggle_edit else "Mute")
+        edit_track_op.prop(edit_track_op_props, "lock_input", text = "Toggle Lock" if is_toggle_edit else "Lock")
 
         row = edit_track_op.row()
         row.scale_y = 2.0
@@ -206,17 +204,27 @@ class NLA_PT_strip_edit(bpy.types.Panel):
 
     def draw(self, context):
         edit_strip_op_props = context.scene.NBE_properties.strip_toggles
-        strip_properties = context.scene.NBE_properties.strip_props
+        active_strip = context.active_nla_strip
 
         layout = self.layout
         layout.use_property_split = True
         layout = layout.grid_flow(row_major=True, columns=0, even_columns=True, even_rows=False, align=False)
 
         edit_strip_op = layout.column()
-        
+
+        if not active_strip:
+            edit_strip_op.label(text="No active strip")
+            edit_strip_op.separator(type="SPACE")
+            main_button = edit_strip_op.row()
+            main_button.scale_y = 2.0
+            main_button.operator(op_edit_strip_data.op.bl_idname)
+            main_button.enabled = False
+            edit_strip_op.separator(type="SPACE")
+            return
+
         is_any_enabled = False
         for prop in edit_strip_op_props.__annotations__.keys():
-            if hasattr(strip_properties, prop):
+            if hasattr(active_strip, prop):
                 prop_name = edit_strip_op_props.bl_rna.properties[prop].name
                 toggle_value = getattr(edit_strip_op_props, prop)
                 label_stat = "RESTRICT_SELECT_OFF" if toggle_value else "RESTRICT_SELECT_ON"
@@ -231,7 +239,7 @@ class NLA_PT_strip_edit(bpy.types.Panel):
                 row.prop(edit_strip_op_props, prop, icon=label_stat, icon_only=True)
                 subrow = row.row()
                 subrow.active = getattr(edit_strip_op_props, prop)
-                subrow.prop(strip_properties, prop, text=prop_name)
+                subrow.prop(active_strip, prop, text=prop_name)
                 row.label()
                 row.label()
 

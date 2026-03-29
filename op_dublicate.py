@@ -17,7 +17,7 @@ class op(bpy.types.Operator):
         selected = 0
         op_props = context.scene.NBE_properties.dublicate_ops_props
 
-        bpy.ops.nla_batch_editor.transfer_selection(transfer_type="STOT")
+        bpy.ops.anim.transfer_selection(transfer_type="STOT")
 
         for obj in context.view_layer.objects:
             if not obj.animation_data or not obj.animation_data.nla_tracks:
