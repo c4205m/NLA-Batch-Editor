@@ -93,7 +93,7 @@ Ultimately, the add-on empowers you to focus on *animation logic*, not *editor b
 ## Installation
 
   
-Download from the [Blender Extensions Platform](LINK). 
+Download from the [Blender Extensions Platform](https://extensions.blender.org/approval-queue/nla-batch-editor/). 
 
 ## Usage
 
